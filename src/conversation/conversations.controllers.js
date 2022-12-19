@@ -16,6 +16,21 @@ const findAllConversations = async () => {
     return data
 }
 
+const findConversationById = async ( id ) => {
+    const data = await Conversations.findOne({
+        where: {
+            id: id
+        },
+        include: {
+            model: Participants,
+            include: {
+                model: Users
+            }
+        }
+    })
+    return data
+}
+
 const createConversation = async (obj) => {
     const newConversation = await Conversations.create({
         id: uuid.v4(),
@@ -26,7 +41,7 @@ const createConversation = async (obj) => {
 
     const participant1 = await Participants.create({
         id: uuid.v4(),
-        userId: obj.userId, //? Este es el Owner que viene desde el Token
+        userId: obj.ownerId, //? Este es el Owner que viene desde el Token
         conversationId: newConversation.id
     })
 
@@ -43,7 +58,28 @@ const createConversation = async (obj) => {
     }
 }
 
+const updateConversation = async (id, obj) => {
+    const data = await Conversations.update(obj, {
+        where: {
+            id: id
+        }
+    })
+    return data[0]
+}
+
+const removeConversation = async (id) => {
+    const data = Conversations.destroy({
+        where: {
+            id: id
+        }
+    })
+    return data
+}
+
 module.exports = {
     findAllConversations, 
-    createConversation
+    createConversation,
+    findConversationById,
+    updateConversation,
+    removeConversation
 }
