@@ -1,11 +1,11 @@
-const messagecontrollers = require('./messages.controllers')
+const messageControllers = require('./messages.controllers')
 
 const postMessage = ( req, res ) => {
     const userId = req.user.id
     const conversationId = req.params.conversation_id
     const { message } = req.body
 
-    messagecontrollers.createMessage({ userId, conversationId, message })
+    messageControllers.createMessage({ userId, conversationId, message })
         .then(data => {
             res.status(201).json(data)
         })
