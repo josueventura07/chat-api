@@ -3,6 +3,7 @@ const db = require('../utils/database')
 
 const Users = require('../models/users.models')
 const Conversations = require('../models/conversations.models')
+const Messages = require('../models/messages.models')
 
 
 const Participants = db.define('participants', {
@@ -25,7 +26,8 @@ const Participants = db.define('participants', {
             key: 'id',
             model: Conversations
         }
-    }
+    },
+    
 })
 
 module.exports = Participants
