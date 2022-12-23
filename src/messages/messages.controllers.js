@@ -1,6 +1,5 @@
 const Messages = require('../models/messages.models')
 const uuid = require('uuid')
-const Conversations = require('../models/conversations.models')
 const Participants = require('../models/participants.models')
 const Users = require('../models/users.models')
 
@@ -12,7 +11,10 @@ const findAllMessages = async () => {
 const findMessageById = async (id) => {
     const data = await Messages.findOne({
         where: {
-            id: id
+            id: id,
+        },
+        include: {
+            model: Users
         }
     })
     return data
@@ -28,10 +30,10 @@ const createMessage = async (obj) => {
     return data
 }
 
-const removeMessage = async (id) => {
+const removeMessage = async (userId) => {
     const data = await Messages.destroy({
         where: {
-            id: id
+            userId: userId
         }
     })
     return data

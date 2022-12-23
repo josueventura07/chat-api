@@ -1,11 +1,11 @@
-const { findAllMessages } = require('../messages/messages.controllers')
+const { findParticipantMessage } = require('../participants/participants.controllers')
 
 const messageValidate = ( req, res, next ) => {
-    const conversationId = req.params.message_id
+    const messageId = req.params.message_id
     const userId = req.user.id
 
 
-    findAllMessages(userId, conversationId)
+    findParticipantMessage(userId, messageId)
         .then(data => {
             if(data) {
                 next()

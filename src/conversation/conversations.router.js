@@ -3,7 +3,7 @@ const conversationsevices = require('./conversations.services')
 const messagesServices = require('../messages/messages.services')
 const passportJWT = require('../middlewares/auth.middleware')
 const participantValidate = require('../middlewares/participantValidate.middleware')
-const messageValidate = require('../middlewares/messageValidate.middleware')
+
 
 router.route('/')
     .get(passportJWT.authenticate('jwt', {session: false}), conversationsevices.getAllConversations)

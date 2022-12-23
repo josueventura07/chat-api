@@ -12,6 +12,7 @@ const getAllMessages = ( req, res ) => {
 
 const getMessageById = ( req, res ) => {
     const id = req.params.message_id
+    
     messageControllers.findMessageById(id)
         .then(data => {
             if(data) {
@@ -42,13 +43,14 @@ const postMessage = ( req, res ) => {
 }
 
 const deleteMessage = ( req, res ) => {
-    const id = req.params.message_id
-    messageControllers.removeMessage(id)
+    const userId = req.user.id
+    
+    messageControllers.removeMessage(userId)
         .then(data => {
             if(data) {
                 res.status(204).json()
             } else {
-                res.status(404).json({message: 'Invalid ID'})
+                res.status(404).json({message: 'Not Exist or Unauthorized'})
             }
         })
         .catch(err => {
